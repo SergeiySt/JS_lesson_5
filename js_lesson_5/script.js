@@ -63,7 +63,49 @@ $(document).ready(function () {
         table += "<tr><td>Навички</td><td>" + skills.join(", ") + "</td></tr>";
         table += "</table>";
 
-        $("#resultTableContainer").html("");
-        $("#resultTableContainer").append(table);
+        /* $("#resultTableContainer").html("");
+        $("#resultTableContainer").append("<h2 class='text-center'>Результат</h2>");
+        $("#resultTableContainer").append(table); */
+
+        var resultHtml = "<div class='highlighted-block p-4'>";
+        resultHtml += "<h2 class='text-center'>Результат</h2>";
+        resultHtml += table;
+        resultHtml += "</div>";
+
+        $("#resultTableContainer").html(resultHtml);
+    });
+});
+
+
+// # 4
+
+$(document).ready(function () {
+    $("#addColorForm").submit(function (event) {
+        event.preventDefault();
+
+        var red = $("#red").val();
+        var green = $("#green").val();
+        var blue = $("#blue").val();
+
+        if (red >= 0 && red <= 255 && green >= 0 && green <= 255 && blue >= 0 && blue <= 255) {
+            var colorElement = $("<div class='color-element'></div>");
+            var colorSwatch = $("<div class='color-swatch'></div>");
+            var colorCode = $("<div class='color-code'></div>");
+
+            var colorValue = "RGB(" + red + ", " + green + ", " + blue + ")";
+            colorSwatch.css("background-color", colorValue);
+            colorCode.text(colorValue);
+
+            colorElement.append(colorSwatch);
+            colorElement.append(colorCode);
+
+            $("#color-container").append(colorElement);
+
+            $("#red").val("");
+            $("#green").val("");
+            $("#blue").val("");
+        } else {
+            alert("Будь ласка, введіть допустимі значення для кольору (0-255).");
+        }
     });
 });
